@@ -1,0 +1,12 @@
+documentation
+.dart_tool/
+trash/
+.idea/
+testResult/
+documentation/extra/
+documentation/pdf/
+documentation/trash/
+zzzzz
+example/extra
+
+

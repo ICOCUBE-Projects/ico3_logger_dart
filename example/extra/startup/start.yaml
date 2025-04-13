@@ -1,0 +1,35 @@
+loggers:
+    -   id: "Main"
+        categories: "<clear> core(warning), network"
+        outputs:
+          console: true
+          file:
+            path: "log.json"
+            format: "json"
+            append: true
+            flush: false
+
+    -   id: "log1"
+        categories: "<clear> all(warning), -ui(warning), -core(warning)"
+        outputs:
+          console: true
+          storage: true
+        decoration:
+          mode: 'full'
+          colorPanel: |
+            { 
+              "levelColors": {
+                "info":"\\u001B[97m",
+                "debug":"dark",
+                "warning":"standard",
+                "error":"dark",
+                "critical":"standard",
+                "fatal":"whiteOnBlue"
+              }
+            }
+
+    -   id: "log2"
+        categories: "<clear> all"
+        outputs:
+          process:
+            function: "printMessage"
