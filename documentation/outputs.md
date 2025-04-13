@@ -83,7 +83,7 @@ graph LR
 ---
 
 You can now explore each output in more detail in their dedicated pages:
-- [Console Output](consoleOutput.md#-console-output)
-- [File Output](fileOutput.md#-file-output)
-- [Process Output](output_process.md)
-- [Storage Output](output_storage.md)
+- [Console Output](consoleOutput.md#console-output)
+- [File Output](fileOutput.md#file-output)
+- [Process Output](processOutput.md#process-output)
+- [Storage Output](storageOutput.md#storage-mode)
