@@ -12,7 +12,7 @@ Logging for Dart/Flutter devs who want **zero hassle** and **total control**: li
 
 ---
 
-## ⚡ Get Started
+## ▶️ Get Started
 
 ```dart
 import 'package:ico3_logger/ico3_logger.dart';
@@ -40,29 +40,29 @@ dart pub add ico3logger
 
 ---
 
-## 🧠 Why iCo3_Logger?
+## 📌  Why iCo3_Logger?
 
 **iCo3_Logger** is built for real apps—**ultrafast**, **lightweight**, and **extensible**. Log effortlessly or dive deep with advanced features.
 
-- 🛠 As simple as `print()`, but smarter
-- 🚀 <0.1µs performance, minimal footprint
-- 🔎 Live filter by category/level
-- 🧵 Multi-loggers for parallel streams
-- 📁 Export to **CSV** or **JSON**
-- 🛠 Custom services: sniffers, post-mortem, and more
-- 🎨 Emojis, timestamps, colors—your way
-- 🧬 Extensible for any project
+- As simple as `print()`, but smarter
+- <0.1µs performance, minimal footprint
+- Live filter by category/level
+- Multi-loggers for parallel streams
+- Export to **CSV** or **JSON**
+- Custom services: sniffers, post-mortem, and more
+- Emojis, timestamps, colors—your way
+- Extensible for any project
 
 ---
 
-## 🚀 Key Features
+## ✴ Key Features
 
-### 🧾 Log Instantly
+### ▶️ Log Instantly
 ```dart
 Log.info('', 'Hello World');
 ```
 
-### 📌 Add Context
+### ➕ Add Context
 ```dart
 Log.setDecoration(category: true, timeStamp: true);
 Log.debug('network', 'Start connection');
@@ -71,14 +71,14 @@ Log.debug('network', 'Start connection');
 2025-04-16 10:30:45.123 [debug] (network) --> Start connection
 ```
 
-### 🧼 Filter Logs
+### ✅ Filter Logs
 ```dart
 Log.setCategories('<clear> core, ui(critical)');
 Log.warning('ui', 'Minor issue'); // Skipped
 Log.critical('ui', 'Major failure'); // Shown
 ```
 
-### 🚨 Ultrafast Critical Mode
+### 🚀 Ultrafast Critical Mode
 ```dart
 Log.enterCriticalMode(size: 50);
 Log.critical('core', 'System down');
@@ -86,7 +86,7 @@ Log.exitCriticalMode();
 ```
 *Runs with minimal footprint in timing-critical zones.*
 
-### 📂 Export Logs
+### 📤 Export Logs
 ```dart
 Log.enableFileOutput(logFileName: "log.csv", format: SaveFormat.csv);
 ```
@@ -95,7 +95,7 @@ timeStamp,level,category,message
 2025-04-16T10:30:45.123,info,core,Running
 ```
 
-### 🛠 Custom Services
+### 🛠️ Custom Services
 #### Log Sniffer
 ```dart
 Log.installService(
@@ -115,7 +115,7 @@ Log.installService(service: LoggerPostFatalService(size: 25));
 ```
 *Capture logs after fatal events for debugging.*
 
-### ⏱ Timeline (µs)
+### ⏱️ Timeline (µs)
 ```dart
 Log.startTimeLine();
 Log.info('core', 'Processing');
@@ -129,12 +129,12 @@ Log.setDecoration(mode: 'emoji', timeStamp: true);
 ```
 *Emojis: 🛠️ (debug), 🚀 (info), 🚨 (critical), ⚠️ (warning), 🔴 (error).*
 
-### 🧵 Multi-Loggers
+### 🔗 Multi-Loggers
 ```dart
 Log.createLogger('AppLogger', categories: '<clear> app, core');
 ```
 
-### 🧠 In-Memory Logs
+### 🔋 In-Memory Logs
 ```dart
 Log.enableStorageOutput();
 Log.printMessageList();
@@ -157,7 +157,7 @@ loggers:
 
 ---
 
-## 🛠 Extend It
+## 🧩 Extend It
 
 Add custom services, outputs, or filters. **iCo3_Logger** adapts to your app’s needs.
 
