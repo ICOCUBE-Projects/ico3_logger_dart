@@ -7,6 +7,7 @@ enum LogStatus { idle, running, closing, closed, error }
 
 abstract class LoggerBase {
   LoggerBase(this.loggerID, this.manager);
+
   String loggerID;
   LoggerManager manager;
   Map<String, LogSelector> logSelectorMap = {};
@@ -18,15 +19,19 @@ abstract class LoggerBase {
   bool withTimeLine = false;
   bool withTimeStamp = false;
   bool withLoggerId = false;
+  bool withEnvironment = false;
   bool useConsole = true;
   bool useFile = false;
   bool useProcess = false;
   bool useStorage = false;
   bool timeLineEnable = false;
 
+  LogService? logService;
+
   List<LogMessage> messageList = [];
 
   int timeLineStart = 0;
+
   bool get useTimeLine => timeLineEnable; //  timeLineStart != 0;
   Decoration decoration = Decoration.none;
 
@@ -100,11 +105,10 @@ abstract class LoggerBase {
   }
 
   // Modify
-  LogError enableOutputs(
-      {required bool newUseConsole,
-      required bool newUseProcess,
-      required bool newUseStorage,
-      required bool newUseFile}) {
+  LogError enableOutputs({required bool newUseConsole,
+    required bool newUseProcess,
+    required bool newUseStorage,
+    required bool newUseFile}) {
     var err = LogError(0);
 
     if (useConsole != newUseConsole) {
@@ -161,23 +165,23 @@ abstract class LoggerBase {
   LogError enableConsoleOutput(bool exclusif) {
     return exclusif
         ? enableOutputs(
-            newUseConsole: true,
-            newUseProcess: false,
-            newUseStorage: false,
-            newUseFile: false)
+        newUseConsole: true,
+        newUseProcess: false,
+        newUseStorage: false,
+        newUseFile: false)
         : enableOutputs(
-            newUseConsole: true,
-            newUseProcess: useProcess,
-            newUseStorage: useStorage,
-            newUseFile: useFile);
+        newUseConsole: true,
+        newUseProcess: useProcess,
+        newUseStorage: useStorage,
+        newUseFile: useFile);
   }
 
   // Modify
   LogError enableFileOutput(bool exclusif,
       {String? logFileName,
-      bool append = false,
-      bool flush = true,
-      SaveFormat format = SaveFormat.text}) {
+        bool append = false,
+        bool flush = true,
+        SaveFormat format = SaveFormat.text}) {
     if (logFileName != null) {
       if (logFileName.isNotEmpty) {
         if (logFileReady()) {
@@ -192,49 +196,49 @@ abstract class LoggerBase {
     }
     return exclusif
         ? enableOutputs(
-            newUseConsole: false,
-            newUseProcess: false,
-            newUseStorage: false,
-            newUseFile: true)
+        newUseConsole: false,
+        newUseProcess: false,
+        newUseStorage: false,
+        newUseFile: true)
         : enableOutputs(
-            newUseConsole: useConsole,
-            newUseProcess: useProcess,
-            newUseStorage: useStorage,
-            newUseFile: true);
+        newUseConsole: useConsole,
+        newUseProcess: useProcess,
+        newUseStorage: useStorage,
+        newUseFile: true);
   }
 
   // Modify
-  LogError enableProcessOutput(
-      bool exclusif, Function(LogMessage message)? onLogMessageX) {
+  LogError enableProcessOutput(bool exclusif,
+      Function(LogMessage message)? onLogMessageX) {
     if (onLogMessageX != null) {
       onLogMessage = onLogMessageX;
     }
     return exclusif
         ? enableOutputs(
-            newUseConsole: false,
-            newUseProcess: true,
-            newUseStorage: false,
-            newUseFile: false)
+        newUseConsole: false,
+        newUseProcess: true,
+        newUseStorage: false,
+        newUseFile: false)
         : enableOutputs(
-            newUseConsole: useConsole,
-            newUseProcess: true,
-            newUseStorage: useStorage,
-            newUseFile: useFile);
+        newUseConsole: useConsole,
+        newUseProcess: true,
+        newUseStorage: useStorage,
+        newUseFile: useFile);
   }
 
   // Modify
   LogError enableStorageOutput(bool exclusif) {
     return exclusif
         ? enableOutputs(
-            newUseConsole: false,
-            newUseProcess: false,
-            newUseStorage: true,
-            newUseFile: false)
+        newUseConsole: false,
+        newUseProcess: false,
+        newUseStorage: true,
+        newUseFile: false)
         : enableOutputs(
-            newUseConsole: useConsole,
-            newUseProcess: useProcess,
-            newUseStorage: true,
-            newUseFile: useFile);
+        newUseConsole: useConsole,
+        newUseProcess: useProcess,
+        newUseStorage: true,
+        newUseFile: useFile);
   }
 
   List<String> getOutputsActive() {
@@ -255,6 +259,13 @@ abstract class LoggerBase {
   }
 
   LoggerFileBase? getOutputFileActive();
+
+
+  LogError postProcessServiceLogMessage(LogMessage message){
+    return postProcessLogMessage(message);
+  }
+
+  LogError postProcessLogMessage(LogMessage message);
 
   LogError setCategories(String categories, {bool clear = false}) {
     if (lockUpdate) {
@@ -306,9 +317,9 @@ abstract class LoggerBase {
 
   List<String> getAllCategories() {
     var selList =
-        logSelectorMap.values.map((valeur) => valeur.toString()).toList();
+    logSelectorMap.values.map((valeur) => valeur.toString()).toList();
     var excluList =
-        logExcludeMap.values.map((valeur) => valeur.toString()).toList();
+    logExcludeMap.values.map((valeur) => valeur.toString()).toList();
     return excluList + selList;
   }
 
@@ -421,39 +432,51 @@ abstract class LoggerBase {
   setLockUpdate(bool lock) => lockUpdate = lock;
 
   bool logFileReady(); // modify
-  LogError openFileSaver(
-          {required String logFileName,
-          bool append = false,
-          bool flush = true,
-          SaveFormat format = SaveFormat.text}) =>
-      LogError(-5, message: 'Function not implemented');
-  LogError closeFileSaver() =>
-      LogError(-5, message: 'Function not implemented');
-  LogStatus getFileSaverStatus() => LogStatus.error;
-  LogError closeLogger() => LogError(-5, message: 'Function not implemented');
-  LogError saveMessageList(String filePath, SaveFormat format,
-          {bool flush = true, bool clear = false}) =>
-      LogError(-5, message: 'Function not implemented');
-  LogError printMessageList({bool clear = false}) =>
-      LogError(-5, message: 'Function not implemented');
-  LogError clearMessageList() =>
-      LogError(-5, message: 'Function not implemented');
-  LogError processMessageList(
-          {Function(LogMessage message)? onLogMessage, bool clear = false}) =>
+  LogError openFileSaver({required String logFileName,
+    bool append = false,
+    bool flush = true,
+    SaveFormat format = SaveFormat.text}) =>
       LogError(-5, message: 'Function not implemented');
 
-  LogError setDecoration(
-      {bool timeStamp = false,
-      bool timeLine = false,
-      bool loggerID = false,
-      bool category = false,
-      String decoration = 'none',
-      String colorPanel = 'none'}) {
+  LogError closeFileSaver() =>
+      LogError(-5, message: 'Function not implemented');
+
+  LogStatus getFileSaverStatus() => LogStatus.error;
+
+  LogError closeLogger() => LogError(-5, message: 'Function not implemented');
+
+  LogError saveMessageList(String filePath, SaveFormat format,
+      {bool flush = true, bool clear = false}) =>
+      LogError(-5, message: 'Function not implemented');
+
+  LogError printMessageList({bool clear = false}) =>
+      LogError(-5, message: 'Function not implemented');
+
+  LogError clearMessageList() =>
+      LogError(-5, message: 'Function not implemented');
+
+  LogError processMessageList(
+      {Function(LogMessage message)? onLogMessage, bool clear = false}) =>
+      LogError(-5, message: 'Function not implemented');
+
+  LogError setDecoration({bool timeStamp = false,
+    bool timeLine = false,
+    bool loggerID = false,
+    bool category = false,
+    bool environment = false,
+    String decoration = 'none',
+    String emoji = 'none',
+    String colorPanel = 'none',}) {
     withCategory = category;
     withLoggerId = loggerID;
     withTimeStamp = timeStamp;
     withTimeLine = timeLine;
+    withEnvironment = environment;
     this.decoration = LoggerBase.parseDecoration(decoration);
+
+    if (emoji.trim().toLowerCase() != 'none') {
+      setEmojiMap(emoji);
+    }
 
     if (colorPanel.trim().toLowerCase() == 'none') {
       levelColorMap = null;
@@ -493,7 +516,7 @@ abstract class LoggerBase {
           Map<LogLevel, String> levelColorMap = {};
           for (var item in mCol.entries) {
             var lLvl =
-                LogSelector.parseLogLevel(item.key.toString().toLowerCase());
+            LogSelector.parseLogLevel(item.key.toString().toLowerCase());
             if (item.value.toString().trim().toLowerCase() == 'standard') {
               levelColorMap[lLvl] = standardLevelColorMap[lLvl] ?? '';
             } else {
@@ -564,12 +587,48 @@ abstract class LoggerBase {
 
   Map<LogLevel, String> emojiMap = {
     LogLevel.info: 'ℹ️',
-    LogLevel.debug: '🪲',
+    LogLevel.debug: '🛠️',
     LogLevel.warning: '⚠️',
     LogLevel.error: '❌',
     LogLevel.critical: '🔥',
     LogLevel.fatal: '☠️',
   };
+
+  Map<LogLevel, String> standardEmojiMap = {
+    LogLevel.info: 'ℹ️',
+    LogLevel.debug: '🛠️',
+    LogLevel.warning: '⚠️',
+    LogLevel.error: '❌',
+    LogLevel.critical: '🔥',
+    LogLevel.fatal: '☠️',
+  };
+
+  Map<LogLevel, String> customEmojiMap = {
+    LogLevel.info: 'ℹ️',
+    LogLevel.debug: '🛠️',
+    LogLevel.warning: '⚠️',
+    LogLevel.error: '❌',
+    LogLevel.critical: '🔥',
+    LogLevel.fatal: '☠️',
+  };
+
+
+  setEmojiMap(String emo) {
+    if (emo.trim().toLowerCase() == 'standard') {
+      emojiMap = standardEmojiMap;
+      return;
+    }
+    var emoSplit = emo.split(',');
+    var idx = 0;
+    for (var emj in emoSplit) {
+      try {
+        var key = customEmojiMap.keys.toList().elementAt(idx);
+        customEmojiMap[key] = emj;
+      } catch (ex) {}
+      idx++;
+    }
+    emojiMap = customEmojiMap;
+  }
 
   static Map<String, String> standardColorMap = {
     "black": "\x1B[30m",
@@ -630,6 +689,20 @@ abstract class LoggerBase {
       default:
         return Decoration.none;
     }
+  }
+
+  LogError installService(LogService service){
+    removeService();
+    service.installLogger(this);
+    logService = service;
+    logService!.startService();
+    return LogError(0);
+  }
+
+  LogError removeService(){
+    var err = logService?.stopService() ?? LogError(-1,message:  'logService unknown');
+    logService = null;
+    return err;
   }
 }
 

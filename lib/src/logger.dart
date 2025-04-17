@@ -17,12 +17,24 @@ class Logger extends LoggerBase {
     // each Logger have it's own timeLine reference
     // You must clone LogMessage for each logger  to set timeLine
     // about critical mode timeLine is set inside CriticalMode Process
-    if (useTimeLine) {
+    if (useTimeLine || msg.isCritical) {
       message = msg.clone();
       if (!message.isCritical) {
         message.timeLine = Timeline.now - timeLineStart;
       }
     }
+
+    if (logService != null) {
+      logService?.processMessage(msg);
+      return err;
+    }
+    return postProcessLogMessage(message);
+  }
+
+
+  @override
+  LogError postProcessLogMessage(LogMessage message){
+    var err = LogError(1);
 
     if (useConsole) {
       consolePrint(message);
@@ -44,12 +56,15 @@ class Logger extends LoggerBase {
   }
 
   consolePrint(LogMessage message) {
-    var fullMessage = printLoggerMessage(message);
+    var fullMessage = '';
+    fullMessage += printServiceMessage(message);
+    fullMessage += printLoggerMessage(message);
     fullMessage += printTimeStampMessage(message);
     fullMessage += printTimeLineMessage(message);
     fullMessage += printLevelMessage(message);
     fullMessage += printCategoryMessage(message);
     fullMessage += message.message;
+    fullMessage += printEnvironmentMessage(message);
     if (decoration == Decoration.full) {
       var messageColor = getMessageColor(message.level);
       fullMessage = '$messageColor$fullMessage$eOC';
@@ -57,12 +72,26 @@ class Logger extends LoggerBase {
     LogPrint.print(fullMessage);
     return;
   }
+  String printServiceMessage(LogMessage message) {
+    if(message.serviceTag == null){
+      return '';
+    }
+    return '${message.serviceTag.toString()}\t';
+
+  }
 
   String printLoggerMessage(LogMessage message) {
     if (withLoggerId) {
       return decoration == Decoration.simple
           ? '($hl$loggerID$eOC) '
           : '($loggerID) ';
+    }
+    return '';
+  }
+  String printEnvironmentMessage(LogMessage message) {
+    if (withEnvironment) {
+      return message.environment.isEmpty? '':
+          ' {${message.environment}}';
     }
     return '';
   }

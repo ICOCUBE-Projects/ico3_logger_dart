@@ -601,7 +601,8 @@ class Log {
   ///   - `'level'`: Shows log level names (e.g., INFO, ERROR).
   ///   - `'simple'`: Minimal styling.
   ///   - `'full'`: Displays all decoration elements.
-  /// - [colorPanel]: A JSON string defining the color scheme.
+  ///   - [emoji]: a list of emojis, one per level in range, separated by commas.
+  ///   - [colorPanel]: A JSON string defining the color scheme.
   ///   - `'none'`: Disables color output.
   ///   - `'standard'`: Uses the built-in standard color palette.
   ///   - Custom: A JSON map assigning ANSI codes or color names per log level:
@@ -626,7 +627,9 @@ class Log {
       bool timeLine = false,
       bool loggerID = false,
       bool category = false,
+        bool environment = false,
       String mode = 'none',
+        String emoji = 'none',
       String colorPanel = 'none'}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
@@ -636,7 +639,24 @@ class Log {
             loggerID: loggerID,
             timeLine: timeLine,
             timeStamp: timeStamp,
+        environment:environment,
             mode: mode,
+            emoji: emoji,
             colorPanel: colorPanel);
   }
+
+  static LogError installService({String logger = 'Main',
+    required LogService service}){
+    return isCriticalMode
+        ? LogError(-5, message: 'is in critical mode')
+        : loggerManager.installService(logger: logger, service: service);
+  }
+
+  static LogError removeService({String logger = 'Main'}){
+    return isCriticalMode
+        ? LogError(-5, message: 'is in critical mode')
+        : loggerManager.removeService(logger: logger);
+  }
+
+
 }

@@ -281,15 +281,31 @@ class LoggerManager {
       bool timeLine = false,
       bool loggerID = false,
       bool category = false,
+        bool environment = false,
       String mode = 'none',
-      String colorPanel = 'none'}) {
+        String emoji = 'none',
+      String colorPanel = 'none', }) {
     return loggerMap[logger]?.setDecoration(
             category: category,
             loggerID: loggerID,
             timeLine: timeLine,
             timeStamp: timeStamp,
             decoration: mode,
+        environment: environment,
+            emoji: emoji,
             colorPanel: colorPanel) ??
+        LogError(-2, message: 'Logger not found [$logger]');
+  }
+
+  LogError installService({String logger = 'Main',
+    required LogService service}){
+    return loggerMap[logger]?.installService(service) ??
+    LogError(-2, message: 'Logger not found [$logger]');
+
+  }
+
+  LogError removeService({String logger = 'Main'}){
+    return loggerMap[logger]?.removeService() ??
         LogError(-2, message: 'Logger not found [$logger]');
   }
 

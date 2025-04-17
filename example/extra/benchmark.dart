@@ -194,12 +194,14 @@ void main() {
 List<BenchReport> criticalModeBenchmarkLoop() {
   List<BenchReport> benchList = [];
   Log.enableConsoleOutput(exclusive: true);
+  Log.setDecoration(timeLine: true, category: true);
   var count = 0;
   do {
     Log.info('test', 'Start critical mode ');
     Log.enterCriticalMode(size: 200);
     var start = Timeline.now;
     for (int i = 0; i < 100; i++) {
+      // Log.info('network', 'Request sent $i');
       Log.info('network', 'Request sent 1');
     }
     var stop = Timeline.now;

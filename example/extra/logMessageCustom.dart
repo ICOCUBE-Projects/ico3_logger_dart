@@ -87,6 +87,7 @@ class UserLogMessage extends LogMessage {
       environment: environment,
       category: category,
     )
+      ..serviceTag = serviceTag
       ..timeStamp = timeStamp
       ..timeLine = timeLine;
   }

@@ -5,7 +5,7 @@ version: 1.0.0
 
 license: BSD-3-Clause
 
-description: "Ultra-fast logger: no setup needed, just log! Filter by category/level, choose multiple outputs, and adapt dynamically to any situation."
+description: "description: Zero-setup, ultra-fast logs 🚀: live filtering, post-mortem, multi-loggers, JSON/CSV."
 homepage: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart/tree/master"
 repository: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart/tree/master"
 issue_tracker: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart/issues"

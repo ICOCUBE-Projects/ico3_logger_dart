@@ -144,6 +144,7 @@ class CriticalLogMessage extends LogMessage {
         level: level,
         environment: environment,
         category: category)
+      ..serviceTag = serviceTag
       ..timeStamp = timeStamp
       ..timeLine = timeLine
       ..isCritical = isCritical

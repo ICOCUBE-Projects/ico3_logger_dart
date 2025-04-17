@@ -105,6 +105,8 @@ class LogMessage {
   /// The category of the log (e.g., "App", "Network").
   String category;
 
+  Object? serviceTag;
+
   /// The timestamp when the log message was created.
   ///
   /// Defaults to the current time if not explicitly set.
@@ -229,6 +231,7 @@ class LogMessage {
       environment: environment,
       category: category,
     )
+      ..serviceTag = serviceTag
       ..timeStamp = timeStamp
       ..timeLine = timeLine
       ..isCritical = isCritical;

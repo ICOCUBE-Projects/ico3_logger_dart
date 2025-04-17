@@ -50,6 +50,10 @@ advancedFunction() {
   useDecoration();
   useTimeLine();
   useCriticalMode();
+  useCriticalModeLoop();
+  useCriticalModeLoop();
+  useCriticalModeLoop();
+  useCriticalModeLoop();
   usePostMortemLog();
   usePostMortemLogToConsole();
 }
@@ -146,6 +150,13 @@ useDecoration() {
       timeStamp: true, loggerID: true, category: true, mode: 'emoji');
   Log.info('app', 'App function A');
   Log.critical('network', 'connection critical');
+
+  // use custom emoji
+  Log.setDecoration(
+      timeStamp: true, loggerID: true, category: true, mode: 'emoji', emoji: '😛,🙂,😨,🥶,🥵,🤬');
+  Log.info('app', 'App function A');
+  Log.critical('network', 'connection critical');
+
   Log.setDecoration(
       timeStamp: true,
       loggerID: true,
@@ -211,10 +222,29 @@ useCriticalMode() {
   Log.info('app', 'App function B CriticalMode');
   Log.info('network', 'connection OK CriticalMode');
   Log.info('core', 'System still running CriticalMode');
+  Log.info('network', 'connection OK CriticalMode');
+  Log.info('core', 'System still running CriticalMode');
   var stop = Timeline.now;
   Log.exitCriticalMode();
-  Log.info('test  CriticalMode', 'time : ${stop - start}');
+  Log.info('test  CriticalMode', 'time : ${stop - start} average time per log : ${(stop - start)/20} ');
 }
+
+useCriticalModeLoop() {
+  LogPrint.print('');
+  LogPrint.print('------- Critical Mode Loop -------');
+  Log.setDecoration(category: true, timeLine: true, mode: 'none');
+  Log.enterCriticalMode(size: 200);
+  var start = Timeline.now;
+  var loopNB = 100;
+  for(int i = 0 ; i < loopNB; i++){
+    Log.info('core', 'System still running CriticalMode');
+  }
+  var stop = Timeline.now;
+  Log.exitCriticalMode();
+  Log.info('test  CriticalMode', 'time : ${stop - start} average time per log : ${(stop - start)/loopNB} ');
+}
+
+
 
 usePostMortemLog() {
   LogPrint.print('');
