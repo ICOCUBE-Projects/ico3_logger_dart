@@ -25,7 +25,7 @@ class Logger extends LoggerBase {
     }
 
     if (logService != null) {
-      logService?.processMessage(msg);
+      logService?.receiveLog(msg);
       return err;
     }
     return postProcessLogMessage(message);

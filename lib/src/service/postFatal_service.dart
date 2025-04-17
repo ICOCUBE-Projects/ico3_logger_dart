@@ -15,7 +15,7 @@ class LoggerPostFatalService extends LogService{
 
 
   @override
-  LogError processMessage(LogMessage message) {
+  LogError receiveLog(LogMessage message) {
     _addMessage(message);
     if (message.level == LogLevel.fatal) {
       _processMessageAndExit();

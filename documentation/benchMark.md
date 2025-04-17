@@ -29,6 +29,8 @@ The following benchmarks provide average logging times across different output m
 
 > The benchmark results provided here are for **indicative purposes only**. During testing, we observed that performance could **vary unpredictably due to external runtime factors beyond our control** — such as console behavior, window size, terminal buffering, IDE-specific handling, etc.
 >
+> JIT averages measured after short warmup period.
+> 
 > **iCo3_Logger is fully synchronous**, providing stable and predictable execution. It is compatible with both synchronous and asynchronous applications.
 >
 > If you are developing a **performance-critical application**, we recommend benchmarking it directly in your target environment.

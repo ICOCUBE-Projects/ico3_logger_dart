@@ -6,7 +6,7 @@ import 'LogTrigger.dart';
 void main() {
 
   //  Log.setDecoration(timeStamp: true, category: true);
-  Log.installService(service: SnifferLogService(trigger: LogTrigger(level:'critical'),preSize: 100, postSize: 25, triggerCount: 1));
+  Log.installService(service: SnifferLogService(trigger: LogMessageTrigger(level:LogLevel.critical, category: 'testLog',message: 'log F'),preSize: 10, postSize: 5, triggerCount: 1));
   // test it...
   for (int i = 0; i < 56; i++) {
     Log.warning('testLog', ' log n°: $i test');

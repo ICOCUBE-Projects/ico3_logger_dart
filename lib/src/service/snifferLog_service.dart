@@ -21,7 +21,7 @@ class SnifferLogService extends LogService{
   bool completed = false;
 
   @override
-  LogError processMessage(LogMessage message) {
+  LogError receiveLog(LogMessage message) {
     if(completed){
       return LogError(-1, message:  'Sniffer Completed');
     }
@@ -93,10 +93,8 @@ class SnifferLogService extends LogService{
 
 }
 
-class SnifferTrigger {
-  bool trigMessage(LogMessage message){
-    return false;
-  }
+abstract class SnifferTrigger {
+  bool trigMessage(LogMessage message);
 }
 
 class FatalTrigger extends SnifferTrigger{
@@ -105,4 +103,56 @@ class FatalTrigger extends SnifferTrigger{
     return message.level == LogLevel.fatal;
   }
 }
+
+class LogMessageTrigger extends SnifferTrigger {
+  final String message;
+  final LogLevel level;
+  final String environment;
+  final String category;
+
+  LogMessageTrigger({
+    this.message = '',
+    this.level = LogLevel.none,
+    this.environment = '',
+    this.category = '',
+  });
+
+  @override
+  bool trigMessage(LogMessage msg) {
+
+    if (level != LogLevel.none && msg.level.index < level.index) {
+      return false;
+    }
+
+    // Vérifie environment si défini
+    if (environment.isNotEmpty && msg.environment != environment) {
+      return false;
+    }
+
+    // Vérifie category si défini
+    if (category.isNotEmpty && msg.category != category) {
+      return false;
+    }
+
+    // Vérifie message si défini (doit être contenu dans le message log)
+    if (message.isNotEmpty && !msg.message.contains(message)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  @override
+  String toString() {
+    return 'MessageTrigger('
+        'message: "$message", '
+        'level: $level, '
+        'environment: "$environment", '
+        'category: "$category"'
+        ')';
+  }
+}
+
+
+
 

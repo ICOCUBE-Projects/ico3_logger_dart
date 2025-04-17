@@ -57,7 +57,7 @@ export 'package:ico3_logger/logger_postfatal_extension.dart';
 
 /// Exports the extension for handling fatal logs with automatic saving.
 export 'package:ico3_logger/src/service/log_service.dart';
-export 'package:ico3_logger/src/service/logger_postfatal_service.dart';
+export 'package:ico3_logger/src/service/postFatal_service.dart';
 export 'package:ico3_logger/src/service/snifferLog_service.dart';
 // Platform-specific abstractions
 /// Exports the base interface for file-based logging.

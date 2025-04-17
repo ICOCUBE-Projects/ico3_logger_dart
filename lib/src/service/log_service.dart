@@ -9,10 +9,18 @@ abstract class LogService{
     return LogError(0);
   }
 
-  LogError processMessage(LogMessage message);
+  LogError receiveLog(LogMessage message);
+  LogError outLog(LogMessage message){
+    return masterLogger?.postProcessLogMessage(message) ?? LogError(-1, message: "masterLogger don't exist");
+  }
 
   LogError startService() => LogError(0);
   LogError stopService() => LogError(0);
 
-
 }
+
+class LogServiceMinimum extends LogService{
+  @override
+  LogError receiveLog(LogMessage message) => outLog(message);
+}
+
