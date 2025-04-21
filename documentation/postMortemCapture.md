@@ -6,21 +6,20 @@
 The following example captures the last 50 log entries before a fatal condition occurs, then disables all outputs and exits the application:
 
 ```dart
-Log.installService(
-  service: LogProbeService(
-    probeName: 'postmortem',
-    onEndRepeat: (id) {
-      Log.disableAllOutputs();
-      LogPrint.print('Post-mortem capture triggered. ID: $id');
-      exit(0);
-    },
-    probeController: FatalTrigger(), // triggers on critical conditions
-    preSize: 50,    // logs before the event
-    postSize: 0,    // no logs after
-    repeat: 1,      // single trigger
-    triggerCount: 1 // only one event needed to activate
-  )
+  Log.enableFileOutput(
+    exclusive: true,
+    logFileName: 'fatal.txt',
 );
+
+Log.installService(
+    service: LogProbeService(
+    probeName: 'PostMortem',
+    onEndRepeat: (id) {
+        Log.disableAllOutputs();
+        LogIO.exitApplication();
+    },
+    probeController: FatalTrigger(),
+    preSize: 50));
 ```
 
 The logger host will automatically:

@@ -81,13 +81,10 @@ class LogProbeService extends LogService {
 
     message.serviceTag = idNoTrig;
     _addMainLoadMessage(message);
-
     if (probeStatus == ProbeStatus.postLoad) {
       postCount++;
-      if (postCount >= postSize) {
-        probeStatus = ProbeStatus.complete;
-      }
     }
+
 
     if (probeStatus == ProbeStatus.preLoad) {
       if (probeController.trigMessage(message)) {
@@ -104,6 +101,12 @@ class LogProbeService extends LogService {
             postCount = 0;
           }
         }
+      }
+    }
+
+    if (probeStatus == ProbeStatus.postLoad) {
+      if (postCount >= postSize) {
+        probeStatus = ProbeStatus.complete;
       }
     }
 

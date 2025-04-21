@@ -1,5 +1,7 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
+
+// this is an example of  PostMortem Capture service (Not supported)
 class LoggerPostFatalService extends LogService {
   LoggerPostFatalService({this.size = 10, this.autoExit = false}) {
     logList = List<LogMessage?>.filled(size, null);
@@ -44,6 +46,7 @@ class LoggerPostFatalService extends LogService {
     }
     if (autoExit) {
       LogIO.exitApplication();
+      masterLogger!.disableAllOutputs();
       // exit(-1);
     }
   }

@@ -13,8 +13,7 @@ void main() {
           probeName: 'testA',
           onEndRepeat: (id) {
             Log.disableAllOutputs();
-            LogPrint.print('onEndRepeat $id');
-            exit(0);
+            LogIO.exitApplication();
           },
           probeController: FatalTrigger(),
           preSize: 50,

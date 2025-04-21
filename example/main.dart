@@ -54,8 +54,6 @@ advancedFunction() {
   useCriticalModeLoop();
   useCriticalModeLoop();
   useCriticalModeLoop();
-  usePostMortemLogToFile();
-  usePostMortemLogToConsole();
 }
 
 logToFile() {
@@ -250,35 +248,3 @@ useCriticalModeLoop() {
       'time : ${stop - start} average time per log : ${(stop - start) / loopNB} ');
 }
 
-usePostMortemLogToFile() {
-  LogPrint.print('');
-  LogPrint.print('------- PostMortem Logs to file -------');
-  Log.enableFileOutput(
-    exclusive: true,
-    logFileName: 'fatal.txt',
-  );
-  Log.installService(service: LoggerPostFatalService(size: 10));
-  for (int i = 0; i < 56; i++) {
-    Log.log('testLog', ' log n°: $i test', level: 'warning');
-  }
-  // do a fatal error
-  Log.log('testLog', ' log Fatal test', level: 'fatal');
-  for (int i = 0; i < 56; i++) {
-    Log.log('testLog', ' log bis n°: $i test', level: 'warning');
-  }
-}
-
-usePostMortemLogToConsole() {
-  LogPrint.print('');
-  LogPrint.print('------- PostMortem Logs to console-------');
-  Log.enableConsoleOutput(exclusive: true);
-  Log.installService(service: LoggerPostFatalService(size: 10));
-  for (int i = 0; i < 56; i++) {
-    Log.log('testLog', ' log n°: $i test', level: 'warning');
-  }
-  // do a fatal error
-  Log.log('testLog', ' log Fatal test', level: 'fatal');
-  for (int i = 0; i < 56; i++) {
-    Log.log('testLog', ' log bis n°: $i test', level: 'warning');
-  }
-}

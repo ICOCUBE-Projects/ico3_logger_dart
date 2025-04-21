@@ -1,5 +1,9 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
+import 'post_fatal_service.dart';
+
+// Use Not Supported Service
+
 void main() {
   //  Log.setDecoration(timeStamp: true, category: true);
   Log.installService(service: LoggerPostFatalService(size: 25));
