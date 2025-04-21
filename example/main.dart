@@ -54,7 +54,7 @@ advancedFunction() {
   useCriticalModeLoop();
   useCriticalModeLoop();
   useCriticalModeLoop();
-  usePostMortemLog();
+  usePostMortemLogToFile();
   usePostMortemLogToConsole();
 }
 
@@ -153,7 +153,11 @@ useDecoration() {
 
   // use custom emoji
   Log.setDecoration(
-      timeStamp: true, loggerID: true, category: true, mode: 'emoji', emoji: '😛,🙂,😨,🥶,🥵,🤬');
+      timeStamp: true,
+      loggerID: true,
+      category: true,
+      mode: 'emoji',
+      emoji: '😛,🙂,😨,🥶,🥵,🤬');
   Log.info('app', 'App function A');
   Log.critical('network', 'connection critical');
 
@@ -226,7 +230,8 @@ useCriticalMode() {
   Log.info('core', 'System still running CriticalMode');
   var stop = Timeline.now;
   Log.exitCriticalMode();
-  Log.info('test  CriticalMode', 'time : ${stop - start} average time per log : ${(stop - start)/20} ');
+  Log.info('test  CriticalMode',
+      'time : ${stop - start} average time per log : ${(stop - start) / 20} ');
 }
 
 useCriticalModeLoop() {
@@ -236,28 +241,23 @@ useCriticalModeLoop() {
   Log.enterCriticalMode(size: 200);
   var start = Timeline.now;
   var loopNB = 100;
-  for(int i = 0 ; i < loopNB; i++){
+  for (int i = 0; i < loopNB; i++) {
     Log.info('core', 'System still running CriticalMode');
   }
   var stop = Timeline.now;
   Log.exitCriticalMode();
-  Log.info('test  CriticalMode', 'time : ${stop - start} average time per log : ${(stop - start)/loopNB} ');
+  Log.info('test  CriticalMode',
+      'time : ${stop - start} average time per log : ${(stop - start) / loopNB} ');
 }
 
-
-
-usePostMortemLog() {
+usePostMortemLogToFile() {
   LogPrint.print('');
   LogPrint.print('------- PostMortem Logs to file -------');
-  Log.enableProcessOutput(
-      exclusive: true,
-      onLogMessage: LoggerPostFatalExtension(
-              size: 25,
-              fileName: 'fatal.csv',
-              format: SaveFormat.csv,
-              autoExit: false)
-          .processMessage);
-  // test it...
+  Log.enableFileOutput(
+    exclusive: true,
+    logFileName: 'fatal.txt',
+  );
+  Log.installService(service: LoggerPostFatalService(size: 10));
   for (int i = 0; i < 56; i++) {
     Log.log('testLog', ' log n°: $i test', level: 'warning');
   }
@@ -271,11 +271,8 @@ usePostMortemLog() {
 usePostMortemLogToConsole() {
   LogPrint.print('');
   LogPrint.print('------- PostMortem Logs to console-------');
-  Log.enableProcessOutput(
-      exclusive: true,
-      onLogMessage:
-          LoggerPostFatalExtension(size: 25, useConsole: true).processMessage);
-  // test it...
+  Log.enableConsoleOutput(exclusive: true);
+  Log.installService(service: LoggerPostFatalService(size: 10));
   for (int i = 0; i < 56; i++) {
     Log.log('testLog', ' log n°: $i test', level: 'warning');
   }

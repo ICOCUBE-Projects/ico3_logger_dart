@@ -31,9 +31,8 @@ class Logger extends LoggerBase {
     return postProcessLogMessage(message);
   }
 
-
   @override
-  LogError postProcessLogMessage(LogMessage message){
+  LogError postProcessLogMessage(LogMessage message) {
     var err = LogError(1);
 
     if (useConsole) {
@@ -72,12 +71,12 @@ class Logger extends LoggerBase {
     LogPrint.print(fullMessage);
     return;
   }
+
   String printServiceMessage(LogMessage message) {
-    if(message.serviceTag == null){
+    if (message.serviceTag == null) {
       return '';
     }
     return '${message.serviceTag.toString()}\t';
-
   }
 
   String printLoggerMessage(LogMessage message) {
@@ -88,10 +87,10 @@ class Logger extends LoggerBase {
     }
     return '';
   }
+
   String printEnvironmentMessage(LogMessage message) {
     if (withEnvironment) {
-      return message.environment.isEmpty? '':
-          ' {${message.environment}}';
+      return message.environment.isEmpty ? '' : ' {${message.environment}}';
     }
     return '';
   }

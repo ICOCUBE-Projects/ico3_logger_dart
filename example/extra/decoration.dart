@@ -7,14 +7,31 @@ void main() {
   Log.setDecoration(mode: 'emoji', emoji: '😛,🙂,😨,🥶,🥵,🤬');
   Log.info('core', 'warning system');
   Log.critical('core', 'warning system');
-  Log.setDecoration(category: true, timeStamp: true,loggerID: true, environment: true);
+  Log.setDecoration(
+      category: true, timeStamp: true, loggerID: true, environment: true);
   Log.critical('core', 'warning system', environment: 'i9-14900K');
-  Log.setDecoration(category: true, timeStamp: true,loggerID: true, environment: true ,mode: 'level', colorPanel: 'dark');
+  Log.setDecoration(
+      category: true,
+      timeStamp: true,
+      loggerID: true,
+      environment: true,
+      mode: 'level',
+      colorPanel: 'dark');
   Log.critical('core', 'warning system', environment: 'i9-14900K');
-  Log.setDecoration(category: true, timeStamp: true,loggerID: true, environment: true ,mode: 'simple', colorPanel: 'dark');
+  Log.setDecoration(
+      category: true,
+      timeStamp: true,
+      loggerID: true,
+      environment: true,
+      mode: 'simple',
+      colorPanel: 'dark');
   Log.critical('core', 'warning system', environment: 'i9-14900K');
-  Log.setDecoration(category: true, timeStamp: true,loggerID: true, environment: true ,mode: 'full', colorPanel: 'dark');
+  Log.setDecoration(
+      category: true,
+      timeStamp: true,
+      loggerID: true,
+      environment: true,
+      mode: 'full',
+      colorPanel: 'dark');
   Log.critical('core', 'warning system', environment: 'i9-14900K');
-
-
 }

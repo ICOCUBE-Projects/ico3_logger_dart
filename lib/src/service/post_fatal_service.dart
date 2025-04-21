@@ -1,18 +1,13 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
-class LoggerPostFatalService extends LogService{
-
-  LoggerPostFatalService(
-      {this.size = 10,
-      this.autoExit = true}) {
+class LoggerPostFatalService extends LogService {
+  LoggerPostFatalService({this.size = 10, this.autoExit = false}) {
     logList = List<LogMessage?>.filled(size, null);
   }
   late final List<LogMessage?> logList;
   int size;
   int _logPointer = 0;
   bool autoExit;
-
-
 
   @override
   LogError receiveLog(LogMessage message) {
@@ -52,5 +47,4 @@ class LoggerPostFatalService extends LogService{
       // exit(-1);
     }
   }
-
 }

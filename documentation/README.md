@@ -42,8 +42,8 @@ Each file focuses on a specific aspect and can be read independently.
 ---
 
 ## 🔍 Debug & Diagnostics
-- [Log Sniffer](sniffer.md#-snifferlogservice) — Capture events around critical activity using triggers.
-- [Post-Mortem Log](sniffer.md#-postmortem-service-loggerpostfatalservice) — Retrieve logs after a failure or unexpected termination.
+- [Log Sniffer](trash/sniffer.md#-snifferlogservice) — Capture events around critical activity using triggers.
+- [Post-Mortem Log](trash/sniffer.md#-postmortem-service-loggerpostfatalservice) — Retrieve logs after a failure or unexpected termination.
 
 ---
 

@@ -1,8 +1,14 @@
-import 'dart:html';
+import 'package:web/web.dart';
+import 'dart:js_interop';
 
 class LogIO {
   static print(Object? data) {
-    window.console.log('$data');
+    console.log(convertObjectToJsAny(data));
+  }
+
+  static JSAny? convertObjectToJsAny(Object? dartObject) {
+    if (dartObject == null) return null;
+    return dartObject.toString().toJS;
   }
 
   static coloredPrint(Object? data, String color) {

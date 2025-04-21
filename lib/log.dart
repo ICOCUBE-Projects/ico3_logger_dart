@@ -627,9 +627,9 @@ class Log {
       bool timeLine = false,
       bool loggerID = false,
       bool category = false,
-        bool environment = false,
+      bool environment = false,
       String mode = 'none',
-        String emoji = 'none',
+      String emoji = 'none',
       String colorPanel = 'none'}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
@@ -639,24 +639,22 @@ class Log {
             loggerID: loggerID,
             timeLine: timeLine,
             timeStamp: timeStamp,
-        environment:environment,
+            environment: environment,
             mode: mode,
             emoji: emoji,
             colorPanel: colorPanel);
   }
 
-  static LogError installService({String logger = 'Main',
-    required LogService service}){
+  static LogError installService(
+      {String logger = 'Main', required LogService service}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
         : loggerManager.installService(logger: logger, service: service);
   }
 
-  static LogError removeService({String logger = 'Main'}){
+  static LogError removeService({String logger = 'Main'}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
         : loggerManager.removeService(logger: logger);
   }
-
-
 }
