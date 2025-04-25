@@ -89,8 +89,7 @@ This service maintains full compatibility with the logger's output configuration
 
 ## Built-in Examples
 
-- 🔧 [`PostFatal Service`](../lib/src/service/postFatal_service.dart) – Trigger logic after a fatal event.
-- 🩺 [`Sniffer Service`](../lib/src/service/snifferLog_service.dart) – Inspect and analyze live log streams.
+- 🩺 [`Probe Service`](../lib/src/service/log_probe/log_probe.dart) – Inspect and analyze live log streams.
 
 ---
 

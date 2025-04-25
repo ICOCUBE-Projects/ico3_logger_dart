@@ -1,14 +1,33 @@
 
-[![pub package](https://img.shields.io/pub/v/ico3logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dev/packages/ico3logger)
+[![pub package](https://img.shields.io/pub/v/ico3_logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dev/packages/ico3_logger)
 ![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)
-![perf](https://img.shields.io/badge/speed-%3C0.1µs-green)
+![Ultra-Fast Logger](https://img.shields.io/badge/ultra_fast_logger-%3C0.1µs-green)
+![Dart](https://img.shields.io/badge/Dart-Stable-0175C2?logo=dart&logoColor=white)
+![Flutter](https://img.shields.io/badge/Flutter-Ready-02569B?logo=flutter&logoColor=white)
+![Dart](https://img.shields.io/badge/language-Dart-0175C2?logo=dart&logoColor=white)
+![Flutter](https://img.shields.io/badge/framework-Flutter-02569B?logo=flutter&logoColor=white)
+[![YouTube](https://img.shields.io/badge/YouTube-Subscribe-FF0000?logo=youtube&logoColor=white)](https://youtube.com/@TONCHAINE)
+[![X](https://img.shields.io/badge/X-Follow-000000?logo=twitter&logoColor=white)](https://x.com/TONPROFIL)
+[![Reddit](https://img.shields.io/badge/Reddit-Join-FF4500?logo=reddit&logoColor=white)](https://reddit.com/r/TONSUBREDDIT)
 
+<h1 align="center">iCo3_Logger</h1>
+<h2 align="center">Dive in the Debug</h2>
 
 # iCo3_Logger
 **By [iCoCube](https://icocube.com)**
 
 **Fast. Simple. Powerful.**  
 Logging for Dart/Flutter devs who want **zero hassle** and **total control**: live filters, crash tracing, multi-loggers, and exportable logs.
+
+
+[![pub package](https://img.shields.io/pub/v/ico3logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dev/packages/ico3logger)
+![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)
+![perf](https://img.shields.io/badge/speed-%3C0.1µs-green)
+![Ultra-Fast Logger](https://img.shields.io/badge/ultra_fast_logger-%3C0.1µs-orange)
+[![YouTube](https://img.shields.io/badge/YouTube-iCoCube-red?logo=youtube)](https://youtube.com/@iCoCube)
+[![X](https://img.shields.io/badge/X-%40iCoCube-000000?logo=x)](https://x.com/iCoCube)
+[![Website](https://img.shields.io/badge/Site-officiel-blue?logo=googlechrome)](https://icocube.com)
+[![Dive in the Debug](https://img.shields.io/badge/🧠_Focus-Dive_in_the_Debug-informational?style=flat-square)](#)
 
 ---
 
@@ -96,22 +115,28 @@ timeStamp,level,category,message
 ```
 
 ### 🛠️ Custom Services
-#### Log Sniffer
+#### Log Probe
 ```dart
 Log.installService(
-  service: SnifferLogService(
-    trigger: LogTrigger(level: 'critical'),
+  service: LogProbeService(
+    probeController: probeController,
     preSize: 100,
     postSize: 25,
-    triggerCount: 1,
-  ),
-);
+    triggerCount: 1));
 ```
 *Analyze logs around trigger events (e.g., critical errors).*
 
 #### Post-Mortem Logs
 ```dart
-Log.installService(service: LoggerPostFatalService(size: 25));
+Log.installService(
+    service: LogProbeService(
+    onEndRepeat: (id) {
+        Log.disableAllOutputs();
+        LogIO.exitApplication();
+        },
+    probeController: FatalTrigger(),
+    preSize: 25));
+
 ```
 *Capture logs after fatal events for debugging.*
 

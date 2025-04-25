@@ -10,6 +10,11 @@
       <excludeFolder url="file://$MODULE_DIR$/documentation/pdf" />
       <excludeFolder url="file://$MODULE_DIR$/documentation/trash" />
       <excludeFolder url="file://$MODULE_DIR$/trash" />
+      <excludeFolder url="file://$MODULE_DIR$/doc" />
+      <excludeFolder url="file://$MODULE_DIR$/documentation" />
+      <excludeFolder url="file://$MODULE_DIR$/example" />
+      <excludeFolder url="file://$MODULE_DIR$/test" />
+      <excludeFolder url="file://$MODULE_DIR$/zzzzz" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />
