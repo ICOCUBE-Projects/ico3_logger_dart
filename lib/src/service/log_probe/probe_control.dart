@@ -1,23 +1,5 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
-/// Abstract base class for defining a trigger mechanism used by a [LogProbeService].
-///
-/// A [ProbeController] decides whether a given [LogMessage] should trigger
-/// the transition from pre-acquisition to post-acquisition state.
-///
-/// You can extend this class to define custom trigger logic.
-abstract class ProbeController {
-  /// Associated [LogProbeService] instance.
-  LogProbeService? scope;
-
-  /// Links this controller to a specific [LogProbeService].
-  void setScope(LogProbeService prob) {
-    scope = prob;
-  }
-
-  /// Evaluates the provided [LogMessage] to determine if it should act as a trigger.
-  bool trigMessage(LogMessage message);
-}
 
 /// A [ProbeController] that triggers only on fatal-level log messages.
 class FatalTrigger extends ProbeController {

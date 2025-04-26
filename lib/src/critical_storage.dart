@@ -12,8 +12,9 @@ class CriticalStorage {
   int size;
   bool growable;
   int index = 0;
+  LogError Function(LogMessage)? processLogMessage;
 
-  CriticalStorage(this.size, {this.growable = true}) {
+  CriticalStorage(this.size, {this.growable = true, this.processLogMessage}) {
     criticalMessageList.clear();
     initStorage();
     timeLineStart = Timeline.now;
@@ -65,7 +66,7 @@ class CriticalStorage {
             environment: cMessage.env, level: cMessage.level, rank: rank);
         logMessage.timeLine = cMessage.timeLine - timeLineStart;
         logMessage.timeStamp = dt;
-        err.mergeError(Log.processLogMessage(logMessage));
+        err.mergeError(processLogMessage?.call(logMessage)?? LogError(-1, message: 'no critical CallBack'));
         //validCount++;
       }
       rank++;

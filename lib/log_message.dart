@@ -36,33 +36,33 @@ enum SaveFormat {
   json,
 }
 
-/// Represents the severity levels of log messages.
-///
-/// This enum categorizes logs by their importance or urgency, ranging from
-/// informational messages to fatal errors. It includes a [none] level for
-/// unclassified logs.
-enum LogLevel {
-  /// An informational message, typically for general status updates.
-  info,
-
-  /// A debug message, useful for troubleshooting and development.
-  debug,
-
-  /// A warning message, indicating a potential issue that doesn’t stop execution.
-  warning,
-
-  /// An error message, indicating a problem that affects functionality.
-  error,
-
-  /// A critical message, indicating a severe issue requiring immediate attention.
-  critical,
-
-  /// A fatal message, indicating an unrecoverable error that may crash the application.
-  fatal,
-
-  /// No specific level assigned, used as a default or placeholder.
-  none,
-}
+// /// Represents the severity levels of log messages.
+// ///
+// /// This enum categorizes logs by their importance or urgency, ranging from
+// /// informational messages to fatal errors. It includes a [none] level for
+// /// unclassified logs.
+// enum LogLevel {
+//   /// An informational message, typically for general status updates.
+//   info,
+//
+//   /// A debug message, useful for troubleshooting and development.
+//   debug,
+//
+//   /// A warning message, indicating a potential issue that doesn’t stop execution.
+//   warning,
+//
+//   /// An error message, indicating a problem that affects functionality.
+//   error,
+//
+//   /// A critical message, indicating a severe issue requiring immediate attention.
+//   critical,
+//
+//   /// A fatal message, indicating an unrecoverable error that may crash the application.
+//   fatal,
+//
+//   /// No specific level assigned, used as a default or placeholder.
+//   none,
+// }
 
 /// Represents a log message with associated metadata.
 ///

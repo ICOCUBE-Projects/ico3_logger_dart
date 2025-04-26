@@ -6,7 +6,7 @@ class LoggerManager {
   // Map<String, ICO3Logger> loggerMap = {};
   Map<String, LoggerBase> loggerMap = {};
   LoggerManager() {
-    var logger = Logger('Main', this);
+    var logger = Logger('Main');    // , this
     loggerMap[logger.loggerID] = logger;
     logger.setCategories('All', clear: true);
   }
@@ -59,7 +59,7 @@ class LoggerManager {
     if (loggerMap.containsKey(logId)) {
       return LogError(-1, message: 'cannot create logger exist');
     }
-    var logger = Logger(logId, this);
+    var logger = Logger(logId);   // , this
     loggerMap[logger.loggerID] = logger;
     if (categories != null) {
       logger.setCategories(categories);

@@ -1,17 +1,18 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
 abstract class LogService {
-  LoggerBase? masterLogger;
+  // LoggerBase? masterLogger;
+  LogError Function(LogMessage)? processLogMessage;
 
-  LogError installLogger(LoggerBase logger) {
-    masterLogger = logger;
+  LogError installLogProcessor(LogError Function(LogMessage)? processMessage ) {
+    processLogMessage = processMessage;
     return LogError(0);
   }
 
   LogError receiveLog(LogMessage message);
   LogError outLog(LogMessage message) {
-    return masterLogger?.postProcessLogMessage(message) ??
-        LogError(-1, message: "masterLogger don't exist");
+    return processLogMessage?.call(message) ??
+        LogError(-1, message: "postProcess don't exist");
   }
 
   LogError startService() => LogError(0);

@@ -6,10 +6,10 @@ import 'package:ico3_logger/ico3_logger.dart';
 enum LogStatus { idle, running, closing, closed, error }
 
 abstract class LoggerBase {
-  LoggerBase(this.loggerID, this.manager);
+  LoggerBase(this.loggerID);    //, this.manager
 
   String loggerID;
-  LoggerManager manager;
+ // LoggerManager manager;
   Map<String, LogSelector> logSelectorMap = {};
   Map<String, LogSelector> logExcludeMap = {};
   String debugText = '';
@@ -49,7 +49,7 @@ abstract class LoggerBase {
 
   bool isLogMessageMatchSelect(LogMessage message) {
     for (var selector in logSelectorMap.values) {
-      if (selector.isMessageMatch(message)) {
+      if (selector.isMessageMatch(message.level, message.category)) {
         return true;
       }
     }
@@ -58,7 +58,7 @@ abstract class LoggerBase {
 
   bool isLogMessageMatchExclude(LogMessage message) {
     for (var selector in logExcludeMap.values) {
-      var rsl = selector.isMessageMatch(message);
+      var rsl = selector.isMessageMatch(message.level,message.category);
       if (rsl) {
         return true;
       }
@@ -697,7 +697,7 @@ abstract class LoggerBase {
 
   LogError installService(LogService service) {
     removeService();
-    service.installLogger(this);
+    service.installLogProcessor(postProcessServiceLogMessage);
     logService = service;
     logService!.startService();
     return LogError(0);
