@@ -210,7 +210,7 @@ Log.connectViewer(address: 'ws://192.168.1.174:4222');
 No setup, no dashboard — just pure live feedback.
 
 
-!📘[Learn more about CLIViewer](https://github.com/ICOCUBE-Projects/ico3_logger_dart/blob/master/documentation/images/cliViewer.gif)
+!📘[Learn more about CLIViewer](https://github.com/ICOCUBE-Projects/ico3_logger_dart/blob/master/documentation/cliViewer.md)
 
 
 
