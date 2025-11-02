@@ -9,6 +9,7 @@ description: "Zero-setup, ultra-fast logs 🚀: live filtering, log sniffer, pos
 homepage: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart"
 repository: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart"
 issue_tracker: "https://github.com/ICOCUBE-Projects/Ico3_logger_dart/issues"
+documentation: "https://github.com/ICOCUBE-Projects/ico3_logger_dart/blob/master/documentation/README.md"
 topics:
   - debugging
   - logging
