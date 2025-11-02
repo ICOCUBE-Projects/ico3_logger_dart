@@ -37,17 +37,15 @@ class CriticalStorage {
     // }
     timeLineStart = Timeline.now;
   }
-
   storeMessage(String category, String message, String? env, Object level) {
     lastTime = Timeline.now;
     if (index < size) {
-      criticalMessageList[index] =
-          CriticalMessage(category, message, env, level, lastTime);
+      criticalMessageList[index].validData(cat: category, mes: message, env: env, lev: level, time: lastTime);
       index++;
     } else {
       if (growable) {
         criticalMessageList
-            .add(CriticalMessage(category, message, env, level, Timeline.now));
+            .add(CriticalMessage(category, message, env, level, Timeline.now)..valid = true);
         index++;
       }
     }
@@ -60,10 +58,10 @@ class CriticalStorage {
     var rank = 0;
     //var validCount = 0;
     for (var cMessage in criticalMessageList) {
-      if (cMessage is! DummyCriticalMessage) {
+      if (cMessage.valid) {
         var logMessage = CriticalLogMessage.fromString(
             cMessage.category, cMessage.message,
-            environment: cMessage.env, level: cMessage.level, rank: rank);
+            environment: cMessage.environment, level: cMessage.level, rank: rank);
         logMessage.timeLine = cMessage.timeLine - timeLineStart;
         logMessage.timeStamp = dt;
         err.mergeError(processLogMessage?.call(logMessage)?? LogError(-1, message: 'no critical CallBack'));
@@ -71,28 +69,31 @@ class CriticalStorage {
       }
       rank++;
     }
-    // if (report != null) {
-    //   double average = duration.toDouble() / validCount;
-    //   var reportMessage = LogMessage.fromString(category,
-    //       '$report duration: $duration ${CriticalStorage.micro}s  Logs: $validCount  average time between log: $average ${CriticalStorage.micro}s ',
-    //       level: level ?? LogLevel.info);
-    //   err.mergeError(Log.processLogMessage(reportMessage));
-    // }
     return err;
   }
 }
 
 class CriticalMessage {
   CriticalMessage(
-      this.category, this.message, this.env, this.level, this.timeLine);
+      this.category, this.message, this.environment, this.level, this.timeLine);
   String category;
   String message;
-  String? env;
+  String? environment;
   Object level;
   int timeLine;
+  bool valid = false;
+
+  validData({required String cat, required String mes, required String? env, required Object lev, required int time}){
+    category = cat;
+    message = mes;
+    environment = env;
+    level = lev;
+    timeLine = time;
+    valid = true;
+  }
 
   factory CriticalMessage.dummy() {
-    return DummyCriticalMessage(
+    return CriticalMessage(
       '', // category empty
       '', // message empty
       '', // env null
@@ -100,11 +101,6 @@ class CriticalMessage {
       0, // timeLine 0
     );
   }
-}
-
-class DummyCriticalMessage extends CriticalMessage {
-  DummyCriticalMessage(
-      super.category, super.message, super.env, super.level, super.timeLine);
 }
 
 class CriticalLogMessage extends LogMessage {

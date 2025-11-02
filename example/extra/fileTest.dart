@@ -9,6 +9,7 @@ void main() {
   Log.info('network', 'test log 3');
   Log.info('network', 'test log 4');
   Log.info('network', 'test log 5');
+  Log.startTimeLine();
   Log.info('network', 'test log 6');
   Log.info('network', 'test log 7');
   Log.info('network', 'test log 8');

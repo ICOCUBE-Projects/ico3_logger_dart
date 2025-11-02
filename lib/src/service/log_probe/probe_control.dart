@@ -3,6 +3,15 @@ import 'package:ico3_logger/ico3_logger.dart';
 
 /// A [ProbeController] that triggers only on fatal-level log messages.
 class FatalTrigger extends ProbeController {
+
+  LogProbeInterface? scope;
+
+
+  @override
+  void setScope(LogProbeInterface prob) {
+    scope = prob;
+  }
+
   @override
   bool trigMessage(LogMessage message) {
     return message.level == LogLevel.fatal;
@@ -28,7 +37,7 @@ class LogProbeController extends ProbeController {
 
   /// Optional category the log message must match.
   String category;
-
+  LogProbeInterface? scope;
   /// Creates a [LogProbeController] with optional filtering rules.
   LogProbeController({
     this.message = '',
@@ -36,6 +45,11 @@ class LogProbeController extends ProbeController {
     this.environment = '',
     this.category = '',
   });
+
+  @override
+  void setScope(LogProbeInterface prob) {
+    scope = prob;
+  }
 
   /// Determines whether the [msg] should trigger the acquisition.
   @override
@@ -113,99 +127,3 @@ class LogProbeController extends ProbeController {
   }
 }
 
-// import 'package:ico3_logger/ico3_logger.dart';
-//
-// abstract class ProbeController {
-//   LogProbeService? scope;
-//   setScope(LogProbeService prob) {
-//     scope = prob;
-//   }
-//
-//   bool trigMessage(LogMessage message);
-// }
-//
-// class FatalTrigger extends ProbeController {
-//   @override
-//   bool trigMessage(LogMessage message) {
-//     return message.level == LogLevel.fatal;
-//   }
-// }
-//
-// class LogProbeController extends ProbeController {
-//    String message;
-//    LogLevel level;
-//    String environment;
-//    String category;
-//
-//   LogProbeController({
-//     this.message = '',
-//     this.level = LogLevel.none,
-//     this.environment = '',
-//     this.category = '',
-//   });
-//
-//   @override
-//   bool trigMessage(LogMessage msg) {
-//     if (level != LogLevel.none && msg.level.index < level.index) {
-//       return false;
-//     }
-//
-//     // Vérifie environment si défini
-//     if (environment.isNotEmpty && msg.environment != environment) {
-//       return false;
-//     }
-//
-//     // Vérifie category si défini
-//     if (category.isNotEmpty && msg.category != category) {
-//       return false;
-//     }
-//
-//     // Vérifie message si défini (doit être contenu dans le message log)
-//     if (message.isNotEmpty && !msg.message.contains(message)) {
-//       return false;
-//     }
-//
-//     return true;
-//   }
-//
-//   stopProbe({bool clear = true}) => scope?.stopProbe(clear: clear);
-//
-//   startProbe() => scope?.startProbe();
-//
-//   restartProbe(
-//           {int preSize = -1,
-//           int postSize = -1,
-//           int repeat = -1,
-//           int triggerCount = -1}) =>
-//       scope?.restartProbe(
-//           preSize: preSize,
-//           postSize: postSize,
-//           triggerCount: triggerCount,
-//           repeat: repeat);
-//
-//   forceTrigger({String? message}) => scope?.forceTrigger(message: message);
-//
-//   setup({
-//     String? message,
-//     LogLevel? level,
-//     String? environment,
-//     String? category,
-//   }){
-//     this.message = message ?? this.message;
-//     this.level = level ?? this.level;
-//     this.environment = environment ?? this.environment;
-//     this.category = category ?? this.category;
-//   }
-//
-//    ProbeStatus get probe => scope?.probeStatus ?? ProbeStatus.na;
-//
-//   @override
-//   String toString() {
-//     return 'MessageTrigger('
-//         'message: "$message", '
-//         'level: $level, '
-//         'environment: "$environment", '
-//         'category: "$category"'
-//         ')';
-//   }
-// }

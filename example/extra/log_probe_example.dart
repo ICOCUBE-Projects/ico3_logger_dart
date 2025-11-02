@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:ico3_logger/ico3_logger.dart';
-
-import 'LogTrigger.dart';
 
 void main() {
   var probeController = LogProbeController(

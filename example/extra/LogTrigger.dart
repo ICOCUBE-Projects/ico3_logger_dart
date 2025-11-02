@@ -11,4 +11,11 @@ class LogTrigger extends ProbeController {
   bool trigMessage(LogMessage message) {
     return message.level == logLevel;
   }
+
+  LogProbeInterface? probeService;
+
+  @override
+  void setScope(LogProbeInterface prob) {
+    probeService = prob;
+  }
 }

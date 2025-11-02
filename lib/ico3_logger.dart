@@ -38,6 +38,7 @@ export 'package:ico3_logger/src/log_print.dart';
 
 /// Exports the manager for creating and handling loggers.
 export 'package:ico3_logger/src/logger_manager.dart';
+export 'package:ico3_logger/src/log_decoration.dart';
 
 /// Exports the log level selector utility.
 export 'package:ico3_logger/src/log_selector.dart';
@@ -52,12 +53,15 @@ export 'package:ico3_logger/src/logger_base.dart';
 /// Exports the default logger implementation.
 export 'package:ico3_logger/src/logger.dart';
 
+export 'package:ico3_logger/src/network/viewerInterface.dart';
+
 /// Exports the extension for handling fatal logs with automatic saving.
 export 'package:ico3_logger/src/service/log_service.dart';
 export 'package:ico3_logger/src/service/log_probe/log_probe.dart';
 export 'package:ico3_logger/src/service/log_probe/probe_buffer.dart';
 export 'package:ico3_logger/src/service/log_probe/probe_element.dart';
 export 'package:ico3_logger/src/service/log_probe/probe_control.dart';
+export 'package:ico3_logger/src/service/log_probe/log_probe_interface.dart';
 // Platform-specific abstractions
 /// Exports the base interface for file-based logging.
 export 'package:ico3_logger/src/platform/logger_filebase.dart';

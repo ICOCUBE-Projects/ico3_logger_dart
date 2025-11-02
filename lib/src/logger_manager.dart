@@ -16,9 +16,35 @@ class LoggerManager {
     for (var lg in loggerMap.values) {
       err.mergeError(lg.stopLogger());
     }
-
     return err;
   }
+
+  LogError connectViewer({required String address, void Function(LogError)? onConnect,
+    void Function(dynamic)? onReceive,  void Function(String)? onError}){
+    ViewerCommunication.create(address).then((value){
+      if(value == null){
+        onConnect?.call(LogError(-80, message: 'unable to open viewer communication'));
+        return;
+      }
+      LogPrint.viewer = value;
+      LogPrint.viewer!.onReceive = onReceive;
+      LogPrint.viewer!.onError = onError;
+      onConnect?.call( LogError(0));
+    });
+
+
+    return  LogError(0);;
+  }
+
+  LogError disconnectViewer(){
+    var err = LogError(0);
+    return err;
+  }
+
+  String getStatusViewer(){
+    return LogPrint.viewer?.status ?? 'na';
+  }
+
 
   LogError loadContext(String path,
       {Map<String, Function(LogMessage message)>? processMap}) {
@@ -237,8 +263,8 @@ class LoggerManager {
         LogError(-2, message: 'Logger not found [$logger]');
   }
 
-  LogError printMessageList({String logger = 'Main', bool clear = false}) {
-    return loggerMap[logger]?.printMessageList(clear: clear) ??
+  LogError printMessageList({String logger = 'Main', bool clear = false, String? tag}) {
+    return loggerMap[logger]?.printMessageList(clear: clear, tag: tag) ??
         LogError(-2, message: 'Logger not found [$logger]');
   }
 

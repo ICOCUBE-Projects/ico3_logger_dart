@@ -55,12 +55,13 @@ Log.setDecoration(
 
 #### Display Modes
 
-| Mode     | Description                                      |
-|----------|--------------------------------------------------|
-| `none`   | Default plain style                              |
-| `emoji`  | Adds emojis for each level                       |
-| `level`  | Only the level is colorized                      |
-| `simple` | Like `level`, but highlights logger & category   |
+| Mode     | Description                                    |
+|----------|------------------------------------------------|
+| `none`   | Default plain style                            |
+| `emoji`  | Adds emojis for each level                     |
+| `level`  | Only the level is colorized                    |
+| `simple` | Like `level`, but highlights logger & category |
+| `full`   | Complete message is colorized                  |
 
 #### Color Panels
 

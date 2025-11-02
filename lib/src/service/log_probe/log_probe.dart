@@ -208,40 +208,22 @@ class LogProbeService extends LogService {
   }
 }
 
-/// Defines the states of the [LogProbeService] capture cycle.
-enum ProbeStatus {
-  /// Probe is idle and not capturing logs.
-  idle,
+// /// Defines the states of the [LogProbeService] capture cycle.
+// enum ProbeStatus {
+//   /// Probe is idle and not capturing logs.
+//   idle,
+//
+//   /// Probe is capturing logs before the trigger.
+//   preLoad,
+//
+//   /// Probe is capturing logs after the trigger.
+//   postLoad,
+//
+//   /// Probe has completed its log capture.
+//   complete,
+//
+//   end,
+//
+//   na,
+// }
 
-  /// Probe is capturing logs before the trigger.
-  preLoad,
-
-  /// Probe is capturing logs after the trigger.
-  postLoad,
-
-  /// Probe has completed its log capture.
-  complete,
-
-  end,
-
-  na,
-}
-
-/// Abstract base class for defining a trigger mechanism used by a [LogProbeService].
-///
-/// A [ProbeController] decides whether a given [LogMessage] should trigger
-/// the transition from pre-acquisition to post-acquisition state.
-///
-/// You can extend this class to define custom trigger logic.
-abstract class ProbeController {
-  /// Associated [LogProbeService] instance.
-  LogProbeService? scope;
-
-  /// Links this controller to a specific [LogProbeService].
-  void setScope(LogProbeService prob) {
-    scope = prob;
-  }
-
-  /// Evaluates the provided [LogMessage] to determine if it should act as a trigger.
-  bool trigMessage(LogMessage message);
-}

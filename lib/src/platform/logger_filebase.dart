@@ -1,5 +1,7 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
+enum LogStatus { idle, running, closing, closed, error }
+
 abstract class LoggerFileBase {
   // File? _logFile;
   // RandomAccessFile? _fileSync;

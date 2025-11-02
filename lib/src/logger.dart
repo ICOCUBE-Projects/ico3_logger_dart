@@ -64,8 +64,8 @@ class Logger extends LoggerBase {
     fullMessage += printCategoryMessage(message);
     fullMessage += message.message;
     fullMessage += printEnvironmentMessage(message);
-    if (decoration == Decoration.full) {
-      var messageColor = getMessageColor(message.level);
+    if (decorationManager.decoration == DecorationEnum.full) {
+      var messageColor = decorationManager.getMessageColor(message.level);
       fullMessage = '$messageColor$fullMessage$eOC';
     }
     LogPrint.print(fullMessage);
@@ -80,8 +80,8 @@ class Logger extends LoggerBase {
   }
 
   String printLoggerMessage(LogMessage message) {
-    if (withLoggerId) {
-      return decoration == Decoration.simple
+    if (decorationManager.withLoggerId) {
+      return decorationManager.decoration == DecorationEnum.simple
           ? '($hl$loggerID$eOC) '
           : '($loggerID) ';
     }
@@ -89,21 +89,21 @@ class Logger extends LoggerBase {
   }
 
   String printEnvironmentMessage(LogMessage message) {
-    if (withEnvironment) {
+    if (decorationManager.withEnvironment) {
       return message.environment.isEmpty ? '' : ' {${message.environment}}';
     }
     return '';
   }
 
   String printTimeStampMessage(LogMessage message) {
-    if (withTimeStamp) {
+    if (decorationManager.withTimeStamp) {
       return '${message.timeStamp} ';
     }
     return '';
   }
 
   String printTimeLineMessage(LogMessage message) {
-    if (withTimeLine) {
+    if (decorationManager.withTimeLine) {
       return message.isCritical
           ? '<${message.timeLine}>. '
           : '<${message.timeLine}> ';
@@ -112,13 +112,13 @@ class Logger extends LoggerBase {
   }
 
   String printLevelMessage(LogMessage message) {
-    switch (decoration) {
-      case Decoration.emoji:
-        var emoji = getMessageEmoji(message.level);
+    switch (decorationManager.decoration) {
+      case DecorationEnum.emoji:
+        var emoji = decorationManager.getMessageEmoji(message.level);
         return '[$emoji${message.level.name}] ';
-      case Decoration.level:
-      case Decoration.simple:
-        var levelColor = getLevelColor(message.level);
+      case DecorationEnum.level:
+      case DecorationEnum.simple:
+        var levelColor = decorationManager.getLevelColor(message.level);
         return '[$levelColor${message.level.name}$eOC] ';
       default:
         return '[${message.level.name}] ';
@@ -129,8 +129,8 @@ class Logger extends LoggerBase {
     if (message.category.isEmpty) {
       return '';
     }
-    if (withCategory) {
-      if (decoration == Decoration.simple) {
+    if (decorationManager.withCategory) {
+      if (decorationManager.decoration == DecorationEnum.simple) {
         return '($hl${message.category}$eOC) --> ';
       }
       return '(${message.category}) --> ';
@@ -222,9 +222,9 @@ class Logger extends LoggerBase {
             append: false,
             flush: flush)
         .saveMessageList(messageList,
-            withTimeLine: withCategory,
+            withTimeLine: decorationManager.withCategory,
             envActive: envActive,
-            withCategory: withTimeLine);
+            withCategory:decorationManager.withTimeLine);
     if (clear) {
       messageList.clear();
     }
@@ -232,12 +232,14 @@ class Logger extends LoggerBase {
   }
 
   @override
-  LogError printMessageList({bool clear = false}) {
+  LogError printMessageList({bool clear = false, String? tag}) {
     for (var lg in messageList) {
-      var strMessage =
-          lg.getStringMessageForLogger(withCategory, envActive, withTimeLine);
-      var fullMessage = '($loggerID) $strMessage';
-      LogPrint.print(fullMessage);
+      // var strMessage =
+      //     lg.getStringMessageForLogger(decorationManager.withCategory, envActive, decorationManager.withTimeLine);
+      // var fullMessage = '($loggerID) $strMessage';
+      lg.serviceTag = tag;
+      consolePrint(lg);
+      // LogPrint.print(fullMessage);
     }
     if (clear) {
       messageList.clear();

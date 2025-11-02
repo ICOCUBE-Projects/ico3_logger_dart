@@ -1,6 +1,6 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
-abstract class LogService {
+abstract class LogService implements LogProbeInterface {
   // LoggerBase? masterLogger;
   LogError Function(LogMessage)? processLogMessage;
 
@@ -19,7 +19,7 @@ abstract class LogService {
   LogError stopService() => LogError(0);
 }
 
-class LogServiceMinimum extends LogService {
-  @override
-  LogError receiveLog(LogMessage message) => outLog(message);
-}
+// class LogServiceMinimum extends LogService {
+//   @override
+//   LogError receiveLog(LogMessage message) => outLog(message);
+// }
