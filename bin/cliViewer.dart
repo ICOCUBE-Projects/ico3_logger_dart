@@ -4,6 +4,7 @@ import 'dart:io';
 
 //  dart pub global activate --source path .
 //  dart pub global activate ico3_logger
+//  dart run ico3_logger:cliViewer 127.0.0.1:3854
 //  logViewer 192.168.1.174:4222
 
 void main(List<String> args) async {

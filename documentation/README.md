@@ -47,6 +47,11 @@ Each file focuses on a specific aspect and can be read independently.
 
 ---
 
+## 🧰 Tools & Utilities
+- [CLIViewer](cliViewer.md) — Command-line log viewer for real-time monitoring.
+
+---
+
 ## 📘 About this Documentation
 
 All files in this folder are part of the internal documentation for `iCo3_Logger`.  

@@ -1,15 +1,4 @@
 
-[![pub package](https://img.shields.io/pub/v/ico3_logger.svg?logo=dart&logoColor=00b9fc)](https://pub.dev/packages/ico3_logger)
-![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)
-![Ultra-Fast Logger](https://img.shields.io/badge/ultra_fast_logger-%3C0.1µs-green)
-![Dart](https://img.shields.io/badge/Dart-Stable-0175C2?logo=dart&logoColor=white)
-![Flutter](https://img.shields.io/badge/Flutter-Ready-02569B?logo=flutter&logoColor=white)
-![Dart](https://img.shields.io/badge/language-Dart-0175C2?logo=dart&logoColor=white)
-![Flutter](https://img.shields.io/badge/framework-Flutter-02569B?logo=flutter&logoColor=white)
-[![YouTube](https://img.shields.io/badge/YouTube-Subscribe-FF0000?logo=youtube&logoColor=white)](https://youtube.com/@TONCHAINE)
-[![X](https://img.shields.io/badge/X-Follow-000000?logo=twitter&logoColor=white)](https://x.com/TONPROFIL)
-[![Reddit](https://img.shields.io/badge/Reddit-Join-FF4500?logo=reddit&logoColor=white)](https://reddit.com/r/TONSUBREDDIT)
-
 <h1 align="center">iCo3_Logger</h1>
 <h2 align="center">Dive in the Debug</h2>
 
@@ -24,10 +13,8 @@ Logging for Dart/Flutter devs who want **zero hassle** and **total control**: li
 ![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)
 ![perf](https://img.shields.io/badge/speed-%3C0.1µs-green)
 ![Ultra-Fast Logger](https://img.shields.io/badge/ultra_fast_logger-%3C0.1µs-orange)
-[![YouTube](https://img.shields.io/badge/YouTube-iCoCube-red?logo=youtube)](https://youtube.com/@iCoCube)
-[![X](https://img.shields.io/badge/X-%40iCoCube-000000?logo=x)](https://x.com/iCoCube)
 [![Website](https://img.shields.io/badge/Site-officiel-blue?logo=googlechrome)](https://icocube.com)
-[![Dive in the Debug](https://img.shields.io/badge/🧠_Focus-Dive_in_the_Debug-informational?style=flat-square)](#)
+
 
 ---
 
@@ -71,8 +58,14 @@ dart pub add ico3logger
 - Custom services: sniffers, post-mortem, and more
 - Emojis, timestamps, colors—your way
 - Extensible for any project
+- Optional remote CLI LogViewer for debugging. 
+
+Find complete documentation and examples [here](https://github.com/ICOCUBE-Projects/ico3_logger_dart/blob/master/documentation/README.md).
+
 
 ---
+
+
 
 ## ✴ Key Features
 
@@ -187,6 +180,40 @@ loggers:
 Add custom services, outputs, or filters. **iCo3_Logger** adapts to your app’s needs.
 
 ---
+
+---
+
+## 🧰 Tools & Utilities
+
+### 🖥️ CLIViewer — Real-time Log Monitor
+`CLIViewer` is a lightweight command-line tool that lets you **watch your logs live** from any machine.
+
+```bash
+dart pub global activate ico3_logger
+dart run ico3_logger:cliViewer <host:port>
+```
+Once connected, you’ll see your logs in real time:
+
+```text
+📡 LoggerPrinter listening on ws://192.168.1.174:4222
+✅ Client connected from 192.168.1.174
+[info] (test) --> message info
+[warning] (test) --> message warning
+```
+Use case:
+Connect your app remotely with:
+
+```dart
+Log.connectViewer(address: 'ws://192.168.1.174:4222');
+```
+
+No setup, no dashboard — just pure live feedback.
+
+
+!📘[Learn more about CLIViewer](https://github.com/ICOCUBE-Projects/ico3_logger_dart/blob/master/documentation/images/cliViewer.gif)
+
+
+
 
 ## 📈 Support the Project
 
