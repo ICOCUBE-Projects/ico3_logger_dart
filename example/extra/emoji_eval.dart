@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:ico3_logger/ico3_logger.dart';
 
 void main() {

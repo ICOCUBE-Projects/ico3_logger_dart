@@ -8,7 +8,7 @@ void main() {
   Log.log('network', 'Network initialization phase 2'); // Processed
   Log.log('process', 'Process running 2/3', level: 'info'); // Processed
   Log.log('core', 'Critical system failure 2', level: 'warning'); // Processed
-  Log.printMessageList(tag:'*');
+  Log.printMessageList(tag: '*');
   Log.log('network', 'Network initialization phase 3'); // Processed
   Log.log('process', 'Process running 3/3', level: 'info'); // Processed
   Log.log('core', 'Critical system failure 3', level: 'warning'); // Processed

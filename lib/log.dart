@@ -19,22 +19,28 @@ class Log {
   /// The manager responsible for handling loggers and their configurations.
   static LoggerManager loggerManager = LoggerManager();
 
-
-  static LogError connectViewer({required String address,void Function(LogError)? onConnect,
-    void Function(dynamic)? onReceive, void Function(String)? onError}){
+  static LogError connectViewer(
+      {required String address,
+      void Function(LogError)? onConnect,
+      void Function(dynamic)? onReceive,
+      void Function(String)? onError}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
-        : loggerManager.connectViewer(address: address,onConnect: onConnect, onReceive: onReceive, onError: onError);
+        : loggerManager.connectViewer(
+            address: address,
+            onConnect: onConnect,
+            onReceive: onReceive,
+            onError: onError);
   }
 
-  static LogError disconnectViewer(){
+  static LogError disconnectViewer() {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
         : loggerManager.disconnectViewer();
   }
 
-  static String getStatusViewer(){
-    return isCriticalMode ? 'isCriticalMode': loggerManager.getStatusViewer();
+  static String getStatusViewer() {
+    return isCriticalMode ? 'isCriticalMode' : loggerManager.getStatusViewer();
   }
 
   /// Indicates whether the logger is in critical mode.
@@ -480,7 +486,8 @@ class Log {
       {String logger = 'Main', bool clear = false, String? tag}) {
     return isCriticalMode
         ? LogError(-5, message: 'is in critical mode')
-        : loggerManager.printMessageList(logger: logger, clear: clear, tag: tag);
+        : loggerManager.printMessageList(
+            logger: logger, clear: clear, tag: tag);
   }
 
   /// Processes the message list with the configured outputs.
@@ -584,7 +591,8 @@ class Log {
   /// Returns: A [LogError] indicating success (always 0).
   static LogError enterCriticalMode({int size = 10, bool growable = true}) {
     isCriticalMode = true;
-    criticalStorage = CriticalStorage(size, growable: growable, processLogMessage: (message){
+    criticalStorage =
+        CriticalStorage(size, growable: growable, processLogMessage: (message) {
       return Log.processLogMessage(message);
     });
     criticalStorage!.storeMessage('', '', '', '');

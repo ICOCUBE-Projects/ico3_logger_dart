@@ -18,11 +18,9 @@ usePostMortemLogToFile() {
           probeName: 'PostMortem',
           onEndRepeat: (id) {
             Log.disableAllOutputs();
-
           },
           probeController: FatalTrigger(),
           preSize: 10));
-
 
   for (int i = 0; i < 56; i++) {
     Log.log('testLog', ' log n°: $i test', level: 'warning');

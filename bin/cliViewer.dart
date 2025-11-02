@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 //  dart pub global activate --source path .
 //  dart pub global activate ico3_logger
 //  dart run ico3_logger:cliViewer 127.0.0.1:3854
@@ -27,14 +26,14 @@ void main(List<String> args) async {
 
   print('📡 LoggerPrinter listening on ws://$host:$port');
 
-
   final server = await HttpServer.bind(host, port);
   await for (HttpRequest request in server) {
     if (WebSocketTransformer.isUpgradeRequest(request)) {
       WebSocketTransformer.upgrade(request).then((WebSocket ws) {
-        print('✅ Client connected from ${request.connectionInfo?.remoteAddress.address}');
+        print(
+            '✅ Client connected from ${request.connectionInfo?.remoteAddress.address}');
         ws.listen(
-              (data) {
+          (data) {
             try {
               final jsonMsg = jsonDecode(data);
               final msg = jsonMsg['message'] ?? '';

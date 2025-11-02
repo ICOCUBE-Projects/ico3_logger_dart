@@ -1,11 +1,17 @@
-
-
 /// Represents the severity levels of log messages.
 ///
 /// This enum categorizes logs by their importance or urgency, ranging from
 /// informational messages to fatal errors. It includes a [none] level for
 /// unclassified logs.
-enum LogLevel {  info, debug, warning, error, critical, fatal, none, }
+enum LogLevel {
+  info,
+  debug,
+  warning,
+  error,
+  critical,
+  fatal,
+  none,
+}
 
 class LogSelector {
   LogSelector(this.logCategory,

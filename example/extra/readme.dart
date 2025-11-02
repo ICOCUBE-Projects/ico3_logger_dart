@@ -116,7 +116,7 @@ void main() {
   Log.exitCriticalMode();
 
   // POSTMORTEM LOG
- //  Log.installService(service: LoggerPostFatalService(size: 10));
+  //  Log.installService(service: LoggerPostFatalService(size: 10));
   // Log.enableProcessOutput(
   //     onLogMessage: LoggerPostFatalExtension(size: 25, useConsole: true).processMessage);
 

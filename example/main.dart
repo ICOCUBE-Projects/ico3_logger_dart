@@ -247,4 +247,3 @@ useCriticalModeLoop() {
   Log.info('test  CriticalMode',
       'time : ${stop - start} average time per log : ${(stop - start) / loopNB} ');
 }
-

@@ -1,11 +1,8 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
-
 /// A [ProbeController] that triggers only on fatal-level log messages.
 class FatalTrigger extends ProbeController {
-
   LogProbeInterface? scope;
-
 
   @override
   void setScope(LogProbeInterface prob) {
@@ -38,6 +35,7 @@ class LogProbeController extends ProbeController {
   /// Optional category the log message must match.
   String category;
   LogProbeInterface? scope;
+
   /// Creates a [LogProbeController] with optional filtering rules.
   LogProbeController({
     this.message = '',
@@ -126,4 +124,3 @@ class LogProbeController extends ProbeController {
         ')';
   }
 }
-

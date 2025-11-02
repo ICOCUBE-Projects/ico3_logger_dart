@@ -1,7 +1,6 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
 void main() {
-
   var tstA = Log.getAllCategories();
   print(tstA);
   Log.info('process', 'test process1');
@@ -9,10 +8,10 @@ void main() {
   var tst = Log.getAllCategories();
   print('categories -> $tst');
   Log.info('process', 'test process2');
-  Log.setCategories(' networkx(warning), processx, corex(critical), -test, -option(error)');
+  Log.setCategories(
+      ' networkx(warning), processx, corex(critical), -test, -option(error)');
   var tst1 = Log.getAllCategories();
   print('categories -> $tst1');
-
 
   Log.setCategories('<clear> all, -process');
   var tst2 = Log.getAllCategories();
@@ -23,6 +22,4 @@ void main() {
   var tst3 = Log.getAllCategories();
   print('categories -> $tst3');
   Log.info('process', 'test process4');
-
 }
-

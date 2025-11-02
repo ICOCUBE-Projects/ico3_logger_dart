@@ -11,7 +11,6 @@ class DecorationManager {
   bool withEnvironment = false;
   DecorationEnum decoration = DecorationEnum.none;
 
-
   LogError setDecoration({
     bool timeStamp = false,
     bool timeLine = false,
@@ -71,7 +70,7 @@ class DecorationManager {
           Map<LogLevel, String> levelColorMap = {};
           for (var item in mCol.entries) {
             var lLvl =
-            LogSelector.parseLogLevel(item.key.toString().toLowerCase());
+                LogSelector.parseLogLevel(item.key.toString().toLowerCase());
             if (item.value.toString().trim().toLowerCase() == 'standard') {
               levelColorMap[lLvl] = standardLevelColorMap[lLvl] ?? '';
             } else {
@@ -125,7 +124,8 @@ class DecorationManager {
   }
 
   String getLevelColor(LogLevel level) {
-    if (decoration != DecorationEnum.level && decoration != DecorationEnum.simple) {
+    if (decoration != DecorationEnum.level &&
+        decoration != DecorationEnum.simple) {
       return '';
     }
     return levelColorMap?[level] ?? '';
@@ -246,5 +246,4 @@ class DecorationManager {
         return DecorationEnum.none;
     }
   }
-
 }

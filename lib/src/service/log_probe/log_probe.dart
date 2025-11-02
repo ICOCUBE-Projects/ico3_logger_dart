@@ -53,6 +53,7 @@ class LogProbeService extends LogService {
   final String? probeName;
 
   /// Current state of the probe.
+  @override
   ProbeStatus probeStatus = ProbeStatus.idle;
 
   /// Counts the number of acquisition cycles completed.
@@ -84,7 +85,6 @@ class LogProbeService extends LogService {
     if (probeStatus == ProbeStatus.postLoad) {
       postCount++;
     }
-
 
     if (probeStatus == ProbeStatus.preLoad) {
       if (probeController.trigMessage(message)) {
@@ -133,6 +133,7 @@ class LogProbeService extends LogService {
   }
 
   /// Starts a new scope capture cycle.
+  @override
   void startProbe() {
     mainLogBuffer = LogBuffer(size: preSize + postSize + 1);
     probeStatus = ProbeStatus.preLoad;
@@ -142,6 +143,7 @@ class LogProbeService extends LogService {
   /// Stops the current capture scope.
   ///
   /// If [clear] is false, processes the buffer before stopping.
+  @override
   void stopProbe({bool clear = true}) {
     if (!clear) {
       probeStatus = ProbeStatus.complete;
@@ -165,6 +167,7 @@ class LogProbeService extends LogService {
   /// Forces the trigger manually, bypassing trigger logic.
   ///
   /// An optional [message] can be provided for the forced log.
+  @override
   void forceTrigger({String? message}) {
     var log = LogMessage(
         message: message ?? 'Trigger Forced',
@@ -181,6 +184,7 @@ class LogProbeService extends LogService {
   }
 
   /// Sets up the scope parameters and restarts the capture cycle.
+  @override
   void restartProbe({
     int preSize = -1,
     int postSize = -1,
@@ -191,8 +195,7 @@ class LogProbeService extends LogService {
     this.preSize = preSize < 0 ? this.preSize : preSize;
     this.postSize = postSize < 0 ? this.postSize : postSize;
     this.triggerCount = triggerCount < 0 ? this.triggerCount : triggerCount;
-    this.probeRepeat =
-        ProbeRepeat(count: repeat < 0 ? probeRepeat.count : repeat);
+    probeRepeat = ProbeRepeat(count: repeat < 0 ? probeRepeat.count : repeat);
     startProbe();
   }
 
@@ -226,4 +229,3 @@ class LogProbeService extends LogService {
 //
 //   na,
 // }
-

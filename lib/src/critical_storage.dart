@@ -37,15 +37,18 @@ class CriticalStorage {
     // }
     timeLineStart = Timeline.now;
   }
+
   storeMessage(String category, String message, String? env, Object level) {
     lastTime = Timeline.now;
     if (index < size) {
-      criticalMessageList[index].validData(cat: category, mes: message, env: env, lev: level, time: lastTime);
+      criticalMessageList[index].validData(
+          cat: category, mes: message, env: env, lev: level, time: lastTime);
       index++;
     } else {
       if (growable) {
-        criticalMessageList
-            .add(CriticalMessage(category, message, env, level, Timeline.now)..valid = true);
+        criticalMessageList.add(
+            CriticalMessage(category, message, env, level, Timeline.now)
+              ..valid = true);
         index++;
       }
     }
@@ -61,10 +64,13 @@ class CriticalStorage {
       if (cMessage.valid) {
         var logMessage = CriticalLogMessage.fromString(
             cMessage.category, cMessage.message,
-            environment: cMessage.environment, level: cMessage.level, rank: rank);
+            environment: cMessage.environment,
+            level: cMessage.level,
+            rank: rank);
         logMessage.timeLine = cMessage.timeLine - timeLineStart;
         logMessage.timeStamp = dt;
-        err.mergeError(processLogMessage?.call(logMessage)?? LogError(-1, message: 'no critical CallBack'));
+        err.mergeError(processLogMessage?.call(logMessage) ??
+            LogError(-1, message: 'no critical CallBack'));
         //validCount++;
       }
       rank++;
@@ -83,7 +89,12 @@ class CriticalMessage {
   int timeLine;
   bool valid = false;
 
-  validData({required String cat, required String mes, required String? env, required Object lev, required int time}){
+  validData(
+      {required String cat,
+      required String mes,
+      required String? env,
+      required Object lev,
+      required int time}) {
     category = cat;
     message = mes;
     environment = env;

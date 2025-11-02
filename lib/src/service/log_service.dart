@@ -4,7 +4,7 @@ abstract class LogService implements LogProbeInterface {
   // LoggerBase? masterLogger;
   LogError Function(LogMessage)? processLogMessage;
 
-  LogError installLogProcessor(LogError Function(LogMessage)? processMessage ) {
+  LogError installLogProcessor(LogError Function(LogMessage)? processMessage) {
     processLogMessage = processMessage;
     return LogError(0);
   }

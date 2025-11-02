@@ -17,7 +17,6 @@ void main() {
           repeat: 1,
           triggerCount: 1));
 
-
   Log.installService(
       service: LogProbeService(
           probeName: 'testA',

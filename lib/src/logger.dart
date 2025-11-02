@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:ico3_logger/ico3_logger.dart';
 
 class Logger extends LoggerBase {
-  Logger(super.loggerID);   //, super.manager
+  Logger(super.loggerID); //, super.manager
 
   // LoggerFile? loggerFile;
 
@@ -224,7 +224,7 @@ class Logger extends LoggerBase {
         .saveMessageList(messageList,
             withTimeLine: decorationManager.withCategory,
             envActive: envActive,
-            withCategory:decorationManager.withTimeLine);
+            withCategory: decorationManager.withTimeLine);
     if (clear) {
       messageList.clear();
     }

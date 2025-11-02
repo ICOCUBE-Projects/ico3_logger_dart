@@ -1,6 +1,5 @@
 import 'package:ico3_logger/ico3_logger.dart';
 
-
 abstract class LogProbeInterface {
   void forceTrigger({String? message});
 
@@ -19,7 +18,7 @@ abstract class LogProbeInterface {
 }
 
 abstract class ProbeController {
-  void setScope(LogProbeInterface prob) ;
+  void setScope(LogProbeInterface prob);
 
   bool trigMessage(LogMessage message);
 }

@@ -6,7 +6,7 @@ class LoggerManager {
   // Map<String, ICO3Logger> loggerMap = {};
   Map<String, LoggerBase> loggerMap = {};
   LoggerManager() {
-    var logger = Logger('Main');    // , this
+    var logger = Logger('Main'); // , this
     loggerMap[logger.loggerID] = logger;
     logger.setCategories('All', clear: true);
   }
@@ -19,32 +19,34 @@ class LoggerManager {
     return err;
   }
 
-  LogError connectViewer({required String address, void Function(LogError)? onConnect,
-    void Function(dynamic)? onReceive,  void Function(String)? onError}){
-    ViewerCommunication.create(address).then((value){
-      if(value == null){
-        onConnect?.call(LogError(-80, message: 'unable to open viewer communication'));
+  LogError connectViewer(
+      {required String address,
+      void Function(LogError)? onConnect,
+      void Function(dynamic)? onReceive,
+      void Function(String)? onError}) {
+    ViewerCommunication.create(address).then((value) {
+      if (value == null) {
+        onConnect?.call(
+            LogError(-80, message: 'unable to open viewer communication'));
         return;
       }
       LogPrint.viewer = value;
       LogPrint.viewer!.onReceive = onReceive;
       LogPrint.viewer!.onError = onError;
-      onConnect?.call( LogError(0));
+      onConnect?.call(LogError(0));
     });
 
-
-    return  LogError(0);;
+    return LogError(0);
   }
 
-  LogError disconnectViewer(){
+  LogError disconnectViewer() {
     var err = LogError(0);
     return err;
   }
 
-  String getStatusViewer(){
+  String getStatusViewer() {
     return LogPrint.viewer?.status ?? 'na';
   }
-
 
   LogError loadContext(String path,
       {Map<String, Function(LogMessage message)>? processMap}) {
@@ -85,7 +87,7 @@ class LoggerManager {
     if (loggerMap.containsKey(logId)) {
       return LogError(-1, message: 'cannot create logger exist');
     }
-    var logger = Logger(logId);   // , this
+    var logger = Logger(logId); // , this
     loggerMap[logger.loggerID] = logger;
     if (categories != null) {
       logger.setCategories(categories);
@@ -263,7 +265,8 @@ class LoggerManager {
         LogError(-2, message: 'Logger not found [$logger]');
   }
 
-  LogError printMessageList({String logger = 'Main', bool clear = false, String? tag}) {
+  LogError printMessageList(
+      {String logger = 'Main', bool clear = false, String? tag}) {
     return loggerMap[logger]?.printMessageList(clear: clear, tag: tag) ??
         LogError(-2, message: 'Logger not found [$logger]');
   }

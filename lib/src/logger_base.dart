@@ -1,13 +1,12 @@
-
 import 'dart:core';
 import 'dart:developer';
 import 'package:ico3_logger/ico3_logger.dart';
 
 abstract class LoggerBase {
-  LoggerBase(this.loggerID);    //, this.manager
+  LoggerBase(this.loggerID); //, this.manager
 
   String loggerID;
- // LoggerManager manager;
+  // LoggerManager manager;
   Map<String, LogSelector> logSelectorMap = {};
   Map<String, LogSelector> logExcludeMap = {};
   String debugText = '';
@@ -52,7 +51,7 @@ abstract class LoggerBase {
 
   bool isLogMessageMatchExclude(LogMessage message) {
     for (var selector in logExcludeMap.values) {
-      var rsl = selector.isMessageMatch(message.level,message.category);
+      var rsl = selector.isMessageMatch(message.level, message.category);
       if (rsl) {
         return true;
       }
@@ -325,7 +324,6 @@ abstract class LoggerBase {
     return logSelectorMap[category]?.isLevelMatch(level) ?? false;
   }
 
-
   LogError internalProcessLogMessage(LogMessage message) =>
       LogError(-5, message: 'Function not implemented');
 
@@ -479,17 +477,15 @@ abstract class LoggerBase {
     String decoration = 'none',
     String emoji = 'none',
     String colorPanel = 'none',
-  }){
+  }) {
     return decorationManager.setDecoration(
-      timeLine: timeLine,
-      timeStamp: timeStamp,
-      loggerID: loggerID,
-      category: category,
-      environment: environment,
-      decoration: decoration,
-      emoji: emoji,
-      colorPanel: colorPanel
-    );
+        timeLine: timeLine,
+        timeStamp: timeStamp,
+        loggerID: loggerID,
+        category: category,
+        environment: environment,
+        decoration: decoration,
+        emoji: emoji,
+        colorPanel: colorPanel);
   }
 }
-
